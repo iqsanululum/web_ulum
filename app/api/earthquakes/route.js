@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getPool } from '@/lib/db';
+
+// Lazy import to prevent build-time execution
+async function getPool() {
+  const { getPool: _getPool } = await import('@/lib/db');
+  return _getPool();
+}
 
 // Ensure the table exists on first use
 async function ensureTable(pool) {
