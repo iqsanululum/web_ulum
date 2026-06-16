@@ -26,6 +26,13 @@ async function ensureTable(pool) {
 // GET /api/earthquakes — fetch all records, newest first (max 100)
 export async function GET() {
   try {
+    // Debug: log connection config (remove after fix)
+    console.log('DB CONFIG:', {
+      host: process.env.MYSQL_HOST,
+      port: process.env.MYSQL_PORT,
+      user: process.env.MYSQL_USER,
+      database: process.env.MYSQL_DATABASE,
+    });
     const pool = getPool();
     await ensureTable(pool);
 
