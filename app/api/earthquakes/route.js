@@ -26,14 +26,7 @@ async function ensureTable(pool) {
 // GET /api/earthquakes — fetch all records, newest first (max 100)
 export async function GET() {
   try {
-    // Debug: log connection config (remove after fix)
-    console.log('DB CONFIG:', {
-      host: process.env.MYSQL_HOST,
-      port: process.env.MYSQL_PORT,
-      user: process.env.MYSQL_USER,
-      database: process.env.MYSQL_DATABASE,
-    });
-    const pool = getPool();
+    const pool = await getPool();
     await ensureTable(pool);
 
     const [rows] = await pool.execute(
@@ -74,7 +67,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const pool = getPool();
+    const pool = await getPool();
     await ensureTable(pool);
 
     await pool.execute(
@@ -94,7 +87,7 @@ export async function POST(request) {
 // DELETE /api/earthquakes — clear all records
 export async function DELETE() {
   try {
-    const pool = getPool();
+    const pool = await getPool();
     await ensureTable(pool);
     await pool.execute('DELETE FROM earthquakes');
     return NextResponse.json({ success: true });
