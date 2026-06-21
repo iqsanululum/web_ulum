@@ -12,7 +12,7 @@ export default function Map({ earthquakes, onMarkerClick }) {
   useEffect(() => {
     // Initialize map if not already done
     if (!mapInstance.current) {
-      mapInstance.current = L.map(mapRef.current).setView([-8.1733, 113.7009], 10);
+      mapInstance.current = L.map(mapRef.current).setView([-8.1714, 113.7236], 10);
 
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -48,8 +48,8 @@ export default function Map({ earthquakes, onMarkerClick }) {
     markersRef.current = {};
 
     // Koordinat tetap stasiun sensor di Puger, Jember
-    const PUGER_LAT = -8.3667;
-    const PUGER_LNG = 113.4833;
+    const PUGER_LAT = -8.1714;
+    const PUGER_LNG = 113.7236;
 
     earthquakes.forEach((data) => {
       let color = '#f1c40f'; // Kuning (Kecil)
@@ -92,8 +92,8 @@ export default function Map({ earthquakes, onMarkerClick }) {
   useEffect(() => {
     window.__flyToQuake = (id, lat, lng) => {
       // Selalu fly ke titik Puger
-      const PUGER_LAT = -8.3667;
-      const PUGER_LNG = 113.4833;
+      const PUGER_LAT = -8.1714;
+      const PUGER_LNG = 113.7236;
       if (mapInstance.current) {
         mapInstance.current.flyTo([PUGER_LAT, PUGER_LNG], 12, { animate: true, duration: 1 });
         if (markersRef.current[id]) {
